@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-var words = ['&#60;p&#62;', 'lives++', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
-=======
 var words = [		
 	'id="tag"',
 	'$(this)',	
