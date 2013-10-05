@@ -13,9 +13,9 @@ var words = [
 	'$(document).ready(function(){})',
 	'function killtheBoss(){$(this).remove()}'
 ],
-	lives 		 = 5, // the initial number of lives
+	lives 		 = 10, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	speedDefault = 10000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
+	speedDefault = 8000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
 	explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
 	
@@ -28,7 +28,7 @@ var input = $('#text-field'); //the textarea
 function populateWithWords(callback) {
 
 	for (var i in words.reverse()) {		
-		$('.words').append('<div id="word-'+i+'" class="animated" data-val='+words[i]+'>'+words[i]+'</div>');
+		$('.words').append('<div id="word-'+i+'" class="animated" data-val='+words[i]+'><span class="text">'+words[i]+'</span><img src="explosion.gif" class="hidden" alt="explosion" width="142" height="200" /></div>');
 	}
 	
 	if (callback != undefined) {
@@ -52,8 +52,8 @@ input.keyup(function(e) {
 	
 	// if the input value is correct so far highlight those letters and add shoot sounds
 	if ($(this).val().toLowerCase() == elm.attr('data-val').substr(0, input.val().length).toLowerCase()) {
-		regExp = new RegExp("(^\\w{"+$(this).val().length+"})"); //""input.val().length;
-		elm.html(elm.text().replace(regExp, '<span style="color:orange">$1</span>'));
+		//regExp = new RegExp("(^\\[A-Z]{"+$(this).val().length+"})"); //""input.val().length;
+		elm.html(elm.text().replace(elm.attr('data-val').substr(0, input.val().length), '<span style="color:orange">'+elm.attr('data-val').substr(0, input.val().length)+'</span>'));
 		document.getElementById('shoot-sound').play();
 	}
 	
@@ -118,13 +118,24 @@ function gravity(elm) {
 		// Make sure the user still have enough lives to move on
 		if (lives > 0) {
 			document.getElementById('multiaudio3').play();
+			
+			var explosionTimer = setTimeout(function(){				
+				//explode
+				
+				elm.remove();
+										
+				input.val('').focus(); //reset the field
+				 					
+				gravity($('.words').find('div').last()); // call the gravity for the next word	
+			}, 500);
+			
+			elm.find('img').removeClass('hidden');
+			elm.find('.text').addClass('hidden');
+			
 			lives--; // decrease the score
 			setLives(lives);
-			
-			elm.remove(); 
-			input.val('').focus(); //reset the field
 		
-			gravity($('.words').find('div').last()); // call the gravity for the next word	
+			
 		} else { // if not GAME OVER
 			$('#game-over').removeClass('hidden').addClass('animated tada');
 		}
