@@ -13,7 +13,6 @@ var words = [
 	'$(document).ready(function(){})',
 	'function killtheBoss(){$(this).remove()}'
 ],
->>>>>>> 4b3af3e0f60017b3c8cbf831fbafc92e45c63561
 	lives 		 = 5, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
 	speedDefault = 10000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
@@ -128,6 +127,7 @@ function gravity(elm) {
 			gravity($('.words').find('div').last()); // call the gravity for the next word	
 		} else { // if not GAME OVER
 			$('#game-over').removeClass('hidden').addClass('animated tada');
+			document.getElementById('gameover').play();
 		}
 	});
 	
