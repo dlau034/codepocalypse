@@ -316,13 +316,20 @@ body {
 	text-align: center;
 	position: absolute;
 	width: 100%;
-	bottom: 100%;
-	background: red;
+	bottom: 100%;    
 }
 
 .words div {
 	position: relative;
-	
+    color: #e1e1e1;
+    font-size: 1.2em;
+    background-image: url("../img/alien1.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    /*height: 100px;*/
+    
+    line-height: 80px;
+
 }
 
 .base {
@@ -344,19 +351,15 @@ body {
     border-top: 10px solid #222;    
 }
 
-.base textarea {
-/*	margin: 0;
-	padding: 0;	
-	padding: 8px;
-	width: 60%;*/
+.base input {
     padding: 8px;
     width: 40%;
     position: absolute!important;
     top: 6px;
     left: 50%;
     margin-left: -270px;    
+    font-family: 'VT323';
 }
-
 #game-over {
 	text-align: center;
 	width: 100%;
@@ -377,6 +380,7 @@ body {
     bottom: 60px;
     position: absolute;
     width: 100%;
+    z-index: 100;
 }
 .sky {
     position: absolute;     
@@ -403,17 +407,21 @@ body {
     margin: 0;
 }
 ::-webkit-input-placeholder {
-   font-family: 'VT323'
+   font-family: 'VT323';
+   color: #555;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   font-family: 'VT323'  
+   font-family: 'VT323';
+   color: #555;  
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   font-family: 'VT323'  
+   font-family: 'VT323';
+   color: #555;  
 }
 
 :-ms-input-placeholder {  
-   font-family: 'VT323'  
+   font-family: 'VT323';
+   color: #555;  
 }
