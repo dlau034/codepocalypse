@@ -138,6 +138,7 @@ function gravity(elm) {
 			
 		} else { // if not GAME OVER
 			$('#game-over').removeClass('hidden').addClass('animated tada');
+			document.getElementById('gameover').play();
 		}
 	});
 	
