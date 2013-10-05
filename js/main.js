@@ -1,4 +1,4 @@
-var words = ['console', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
+var words = ['console', 'lives++', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
 	lives 		 = 5, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
 	speedDefault = 8000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
@@ -33,6 +33,35 @@ function populateWithWords(callback) {
  * and call the gravity for the next word
  */
 input.keyup(function(a) {
+
+	if ($(this).val() == 'lives++') {
+		var elm 		= $('.words').find('div').last(),
+			//explosion	= explosions[Math.floor(Math.random() * explosions.length)]; // choose a random explosion type
+			explosion	= 'swing';
+			document.getElementById('multiaudio5').play();
+			
+			
+		// stop the animation and add the explosion class		
+		elm.stop().addClass(explosion);
+		console.log('explosion type', explosion);
+		
+		var explosionTimer = setTimeout(function(){
+			elm.remove(); // remove the word from the DOM
+
+			// call the gravity for the next word
+			gravity($('.words').find('div').last()); 
+			
+		}, 700); //the duration is equal to the css animation duration
+
+		score++; // increase the score
+		lives++;
+		setLives(lives);
+		setScore(score);		
+		$(this).val('').focus(); //reset the field
+		
+	}
+
+
 	if ($(this).val() == $('.words').find('div').last().html()) {				
 		
 		var elm 		= $('.words').find('div').last(),
