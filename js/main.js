@@ -1,7 +1,7 @@
 var words = ['console', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
 	lives 		 = 5, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	speedDefault = 1000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
+	speedDefault = 8000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
 	explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
 	

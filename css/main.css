@@ -303,6 +303,12 @@ textarea {
     }
 }
 
+body {
+    font-family: 'VT323';
+    padding: 0;
+    margin: 0;
+    background-color: #2F4768;
+}
 
 .words {
 	margin:0;
@@ -320,24 +326,94 @@ textarea {
 }
 
 .base {
-	padding: 0;
+/*	padding: 0;
 	background: brown;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	padding: 10px 0;
-	text-align: center;
+	text-align: center;*/
+
+    /*text-align: center;*/
+
+    height: 50px;
+    background-color: #333;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    border-top: 10px solid #222;    
 }
 
 .base textarea {
-	margin: 0;
+/*	margin: 0;
 	padding: 0;	
-	padding: 10px;
-	width: 60%;
+	padding: 8px;
+	width: 60%;*/
+    padding: 8px;
+    width: 40%;
+    position: absolute!important;
+    top: 6px;
+    left: 50%;
+    margin-left: -270px;    
 }
 
 #game-over {
 	text-align: center;
 	width: 100%;
 	font-size: 100px;
+    margin:0;
+    color: white;
+}
+
+.ship {
+    margin: 0 auto;
+    display: block;
+    width: 500px;
+    z-index: 1000;
+    position: relative;
+    top: -37px;
+}
+.city {
+    bottom: 60px;
+    position: absolute;
+    width: 100%;
+}
+.sky {
+    position: absolute;     
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+.base h1 {
+    float: right;
+    font-family: 'VT323';
+    margin-top: 0;
+    color: #f9f9f9;
+    margin-right: 16px;
+}
+.scoring {
+    position: absolute;
+    top: 10px;
+    left: 19px;
+    z-index: 100;
+
+}
+.scoring h2 {
+    color: white;
+    margin: 0;
+}
+::-webkit-input-placeholder {
+   font-family: 'VT323'
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   font-family: 'VT323'  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   font-family: 'VT323'  
+}
+
+:-ms-input-placeholder {  
+   font-family: 'VT323'  
 }
