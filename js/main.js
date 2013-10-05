@@ -1,4 +1,4 @@
-var words = ['console', 'lives++', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
+var words = ['&#60;p&#62;', 'lives++', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
 	lives 		 = 5, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
 	speedDefault = 5000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
