@@ -1,4 +1,4 @@
-var words = ['console', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
+var words = ['console', 'lives++', 'function', 'bracket', 'log', 'procedure', 'tag', 'object', 'array', 'variable', 'recursive', 'prototype', 'attribute', 'src', 'href', 'border-radius', 'instance', 'inheritance'],
 	lives 		 = 5, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
 	speedDefault = 5000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
@@ -35,25 +35,28 @@ function populateWithWords(callback) {
 input.keyup(function(e) {
 	
 	var elm = $('.words').find('div').last();
-	//$('#game-over').html( $('#game-over').text().replace(/(^\w{2})/,'<span style="color:red">$1</span>'));
-	//console.log($('.words').find('div').last().html().substr(0, 1).toLowerCase(), String.fromCharCode(e.keyCode).toLowerCase());
-	//console.log($('.words').find('div').last().html().substr(0, input.val().length).toLowerCase());
+	
+	// if the input value is correct so far highlight those letters and add shoot sounds
 	if ($(this).val().toLowerCase() == elm.attr('data-val').substr(0, input.val().length).toLowerCase()) {
-		// console.log("DA");
-		// console.log("(^\\w{"+$(this).val().length+"})");
 		regExp = new RegExp("(^\\w{"+$(this).val().length+"})"); //""input.val().length;
-		elm.html(elm.text().replace(regExp, '<span style="color:red">$1</span>'));
+		elm.html(elm.text().replace(regExp, '<span style="color:orange">$1</span>'));
+		document.getElementById('shoot-sound').play();
 	}
 	
+	// if the word is correct 
 	if ($(this).val().toLowerCase() == elm.attr('data-val').toLowerCase()) {
 		
 		//explosion	= explosions[Math.floor(Math.random() * explosions.length)]; // choose a random explosion type
-		var	explosion	= 'bounceOutUp';	
-			
-		// stop the animation and add the explosion class		
+		var	explosion = 'bounceOutUp';	
+
+		// play the sound if the input is corect so far
+		document.getElementById('multiaudio5').play();
+				
+		// stop the animation and add the explosion class
 		elm.stop().addClass(explosion);
 		console.log('explosion type', explosion);
 		
+		// wait for the animation(explosion) to happen and then remove it from the DOM
 		var explosionTimer = setTimeout(function(){
 			elm.remove(); // remove the word from the DOM
 
@@ -61,7 +64,12 @@ input.keyup(function(e) {
 			gravity($('.words').find('div').last()); 
 			
 		}, 700); //the duration is equal to the css animation duration
-
+		
+		if ($(this).val() == 'lives++') {
+			lives++;
+			setLives(lives);
+		}
+		
 		score++; // increase the score
 		setScore(score);		
 		$(this).val('').focus(); //reset the field
@@ -95,6 +103,7 @@ function gravity(elm) {
 		
 		// Make sure the user still have enough lives to move on
 		if (lives > 0) {
+			document.getElementById('multiaudio3').play();
 			lives--; // decrease the score
 			setLives(lives);
 			
@@ -117,7 +126,10 @@ function setLives(newLives) {
 	$('.lives').html(newLives);
 }
 
-
+// Make sure that the form never submits on enter
+$('form').submit(function(){
+	return false;
+});
 
 /* Initiate the whole thing */
 populateWithWords(function(){
