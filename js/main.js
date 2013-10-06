@@ -53,7 +53,7 @@ input.keyup(function(e) {
 	// if the input value is correct so far highlight those letters and add shoot sounds
 	if ($(this).val().toLowerCase() == elm.attr('data-val').substr(0, input.val().length).toLowerCase()) {
 		//regExp = new RegExp("(^\\[A-Z]{"+$(this).val().length+"})"); //""input.val().length;
-		elm.html(elm.text().replace(elm.attr('data-val').substr(0, input.val().length), '<span style="color:orange">'+elm.attr('data-val').substr(0, input.val().length)+'</span>'));
+		elm.find('.text').html(elm.find('.text').text().replace(elm.attr('data-val').substr(0, input.val().length), '<span style="color:orange">'+elm.attr('data-val').substr(0, input.val().length)+'</span>'));
 		document.getElementById('shoot-sound').play();
 	}
 	
