@@ -16,7 +16,7 @@ var words = [
 	lives 		 = 40, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
 	speedDefault = 5000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score
-	sound		 = false;
+	sound		 = true;
 	
 	//explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
@@ -63,12 +63,15 @@ input.keyup(function(e) {
 		//regExp = new RegExp("(^\\[A-Z]{"+$(this).val().length+"})"); //""input.val().length;
 		elm.find('.text').html(elm.find('.text').text().replace(elm.attr('data-val').substr(0, input.val().length), '<span style="color:orange">'+elm.attr('data-val').substr(0, input.val().length)+'</span>'));
 		
+		// play a sound for wach correct character
+		playSound('shoot-sound');
+		
 		// If the input's length is the same as the given string length proceed
 		if ($(this).val().length == elm.attr('data-val').length) {
 			
 			//explosion	= explosions[Math.floor(Math.random() * explosions.length)]; // choose a random explosion type
 	
-			// play the sound if the input is corect so far
+			// play the whole string is done
 			playSound('multiaudio5');
 					
 			// stop the animation and add the explosion class
