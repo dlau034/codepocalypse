@@ -1,5 +1,5 @@
 var words = [		
-	'id="tag"',
+	'id\ now',
 	'$(this)',	
 	'class="menu"',
 	'color:#fff;',
@@ -13,22 +13,27 @@ var words = [
 	'$(document).ready(function(){})',
 	'function killtheBoss(){$(this).remove()}'
 ],
-	lives 		 = 10, // the initial number of lives
+	lives 		 = 40, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	speedDefault = 8000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
-	explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
+	speedDefault = 5000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score
+	sound		 = false;
+	
+	//explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
 	
-	
-	
+/* DEFINE THE DOM ELEMENTS */	
 var input = $('#text-field'); //the textarea
 
 
 // Populate the DOM with the words from the above array
 function populateWithWords(callback) {
-
 	for (var i in words.reverse()) {		
-		$('.words').append('<div id="word-'+i+'" class="animated" data-val='+words[i]+'><span class="text">'+words[i]+'</span><img src="explosion.gif" class="hidden" alt="explosion" width="142" height="200" /></div>');
+		$('.words').append('<div id="word-'+i+'" class="word hidden animated"><span class="text">'+words[i]+'</span><img src="explosion.gif" class="hidden" alt="explosion" width="142" height="200" /></div>');
+		
+		// Add the data-val attribute
+		$('.words').find('.word').last().attr('data-val', words[i]);
+		
+		console.log('data-val:', $('.words').find('.word').last().attr('data-val'),'||', 'html:', $('.words').find('.word').last().find('.text').html());
 	}
 	
 	if (callback != undefined) {
@@ -48,48 +53,55 @@ function populateWithWords(callback) {
  */
 input.keyup(function(e) {
 	
-	var elm = $('.words').find('div').last();
+	var elm = $('.words').find('.word').last();
 	
-	// if the input value is correct so far highlight those letters and add shoot sounds
+	/** 
+	 * IF the input value is correct so far highlight those characters and add shoot sounds 
+	 * ELSE take the last character (incorrect character) out
+	 */
 	if ($(this).val().toLowerCase() == elm.attr('data-val').substr(0, input.val().length).toLowerCase()) {
 		//regExp = new RegExp("(^\\[A-Z]{"+$(this).val().length+"})"); //""input.val().length;
 		elm.find('.text').html(elm.find('.text').text().replace(elm.attr('data-val').substr(0, input.val().length), '<span style="color:orange">'+elm.attr('data-val').substr(0, input.val().length)+'</span>'));
-		document.getElementById('shoot-sound').play();
-	}
-	
-	// if the word is correct 
-	if ($(this).val().toLowerCase() == elm.attr('data-val').toLowerCase()) {
 		
-		//explosion	= explosions[Math.floor(Math.random() * explosions.length)]; // choose a random explosion type
-		var	explosion = 'bounceOutUp';	
-
-		// play the sound if the input is corect so far
-		document.getElementById('multiaudio5').play();
-				
-		// stop the animation and add the explosion class
-		elm.stop().addClass(explosion);
-		console.log('explosion type', explosion);
-		
-		// wait for the animation(explosion) to happen and then remove it from the DOM
-		var explosionTimer = setTimeout(function(){
-			elm.remove(); // remove the word from the DOM
-
-			// call the gravity for the next word
-			gravity($('.words').find('div').last()); 
+		// If the input's length is the same as the given string length proceed
+		if ($(this).val().length == elm.attr('data-val').length) {
 			
-		}, 700); //the duration is equal to the css animation duration
-		
-		if ($(this).val() == 'lives++') {
-			lives++;
-			setLives(lives);
+			//explosion	= explosions[Math.floor(Math.random() * explosions.length)]; // choose a random explosion type
+	
+			// play the sound if the input is corect so far
+			playSound('multiaudio5');
+					
+			// stop the animation and add the explosion class
+			elm.stop().addClass('bounceOutUp');
+			
+			// wait for the animation(explosion) to happen and then remove it from the DOM
+			var explosionTimer = setTimeout(function(){
+				elm.remove(); // remove the word from the DOM
+	
+				// call the gravity for the next word
+				gravity($('.words').find('div').last()); 
+				
+			}, 700); //the duration is equal to the css animation duration
+			
+			if ($(this).val() == 'lives++') {
+				lives++;
+				setLives(lives);
+			}
+			
+			score++; // increase the score
+			setScore(score);		
+			resetField(); //reset the field
+			
 		}
 		
-		score++; // increase the score
-		setScore(score);		
-		$(this).val('').focus(); //reset the field
-		
+	} else { 		
+		resetField($(this).val().substr(0, input.val().length - 1)); // take the last char out
 	}
+
 });
+
+
+
 
 
 
@@ -102,30 +114,31 @@ input.keyup(function(e) {
 function gravity(elm) {
 	
 	//speed = speedDefault - (score * speedFactor);
-	speed = speedDefault;
-	var left = (50 - Math.floor(Math.random()*100))+'%'; // the left angle running from -50% to +50%
+	speed    = speedDefault;
+	console.log(elm[0]);
+	var top  = $(window).height() - elm.parent().offset().top, // the top of the base
+	    left = (50 - Math.floor(Math.random()*100))+'%'; // the left angle running from -50% to +50%
 	
 	// log the speed and the angle for reference
-	console.log('speed: ', speed); 
-	console.log('left: ', left);
+	console.log('String:', elm.attr('data-val'));
+	console.log('Speed: ', speed, 'Left:', left);
+	
+	elm.removeClass('hidden'); // show it
 	
 	elm.animate({
-		'top' :  $(window).height(),
-		'easing' : 	'linear',
-		'left'	 : 	left 
+		'top' 	 : top,
+		'left'	 : left, 
+		'easing' : 'swing'
 	}, speed, function(){
 		
 		// Make sure the user still have enough lives to move on
 		if (lives > 0) {
-			document.getElementById('multiaudio3').play();
+			playSound('multiaudio3');
 			
 			var explosionTimer = setTimeout(function(){				
 				//explode
-				
-				elm.remove();
-										
-				input.val('').focus(); //reset the field
-				 					
+				elm.remove();										
+				resetField(); //reset the field				 					
 				gravity($('.words').find('div').last()); // call the gravity for the next word	
 			}, 500);
 			
@@ -138,18 +151,47 @@ function gravity(elm) {
 			
 		} else { // if not GAME OVER
 			$('#game-over').removeClass('hidden').addClass('animated tada');
-			document.getElementById('gameover').play();
+			playSound('gameover');
 		}
 	});
 	
 }
 
+/**
+ * Set the new given score 
+ */
 function setScore(newScore) {
 	$('.score').html(newScore * scoreMultiplier);
 }
 
+/** 
+ * Set the new given lives 
+ */
 function setLives(newLives) {
 	$('.lives').html(newLives);
+}
+
+/**
+ * Play the given sound, if the sound is enabled
+ */
+function playSound(soundId) {
+	if (sound) {
+		document.getElementById(soundId).play();	
+	}	
+}
+
+/**
+ * Resets the field and sets the focus on it 
+ * If there is a newVal replace the old value with it
+ */
+function resetField(newVal) {
+	if (newVal != undefined) {
+		input.val(newVal); // replace the val with the given val
+	} else {
+		input.val(''); //reset the field
+	}
+	
+	input.focus();
 }
 
 // Make sure that the form never submits on enter
@@ -162,6 +204,11 @@ populateWithWords(function(){
 	setScore(score);
 	setLives(lives);
 	input.focus();
-	gravity($('.words').find('div').last());
+	
+	//wait fot the pulse animation
+	$('.ship').fadeIn('slow', function() {
+		gravity($('.words').find('div').last());	
+	}); 
+	
 });
 
