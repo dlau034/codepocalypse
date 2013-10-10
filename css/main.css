@@ -327,7 +327,10 @@ body {
     background-repeat: no-repeat;
     background-position: center top;
     padding-top: 34px;
+}
 
+.words div.killed {
+   background-image: url("../img/alien1-orange.png");
 }
 
 .base {
@@ -337,16 +340,30 @@ body {
     width: 100%;
     bottom: 0;
     border-top: 10px solid #222;    
+    z-index: 100;
+}
+
+.bullet {
+   background: orange;
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   position: absolute;
+   left: 50%;
+   margin-left: -5px;
+   top: 100%;
+   z-index: 100;
 }
 
 .base input {
     padding: 8px;
     width: 40%;
-    position: absolute!important;
+    position: absolute  !important;
     top: 6px;
-    left: 50%;
-    margin-left: -270px;    
+    left: 30%;
+    /* margin-left: -270px; */
     font-family: 'VT323';
+    z-index: 100;
 }
 #game-over {
 	text-align: center;
@@ -369,6 +386,7 @@ body {
     position: absolute;
     width: 100%;
     z-index: 100;
+    
 }
 .sky {
     position: absolute;     
@@ -413,3 +431,4 @@ body {
    font-family: 'VT323';
    color: #555;  
 }
+
