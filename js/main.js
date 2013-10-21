@@ -56,18 +56,10 @@ var words = [
 	'function killtheBoss(){$(this).remove()}'
 ],
 
-	lives 		 = 6, // the initial number of lives
+	lives 		 = 3, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	speedDefault = 10000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
-	explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
-	
-
-	// lives 		 = 3, // the initial number of lives
-	// score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	// speedDefault = 15000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score
-	// sound		 = true;
-
-	
+	speedDefault = 15000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score
+	sound		 = true;	
 	//explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
 	
