@@ -13,9 +13,9 @@ var words = [
 	'$(document).ready(function(){})',
 	'function killtheBoss(){$(this).remove()}'
 ],
-	lives 		 = 10, // the initial number of lives
+	lives 		 = 6, // the initial number of lives
 	score 		 = 0, scoreMultiplier = 100,   // the current score 					// the score mutlipler
-	speedDefault = 8000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
+	speedDefault = 10000, speedFactor  = 100,   // the default speed in millisiconds		// the multiplication factor related to the score	 	 
 	explosions 	 = ['wooble', 'pulse', 'swing', 'tada', 'flip', 'flipInX', 'flipOutX', 'fadeOutUp', 'fadeOutLeft', 'fadeOutUpBig', 'slideInDown', 'slideOutUp', 'slideOutRight', 'bounceIn', 'bounceInUp', 'bounceInDown', 'bounceOutUp', 'rotateInUpLeft', 'rotateInDownLeft', 'rotateInDownRight', 'rotateOut', 'rotateOutDownLeft', 'lightSpeedIn', 'lightSpeedOut', 'hinge', 'rollIn', 'rollOut']; // the explosion types
 	
 	
